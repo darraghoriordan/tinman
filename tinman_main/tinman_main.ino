@@ -23,7 +23,9 @@
 // the setup routine runs once when you press reset:
 void setup() {
 
-    cs_0_2.set_CS_AutocaL_Millis(0xFFFFFFFF);    
+    cs_0_2.set_CS_AutocaL_Millis(0xFFFFFFFF);   
+       strip.begin();
+    strip.show(); 
 }
  
 void loop()                    
@@ -33,8 +35,25 @@ void loop()
  
     if (total1 > 4000){
       digitalWrite(1, HIGH);
-    }else{
-      digitalWrite(1, LOW);}
-      
-         delay(10);
+       strip.setPixelColor(0, Color(0,0,255));  
+      strip.show();
+    }
+    else{
+      digitalWrite(1, LOW);
+      strip.setPixelColor(0, Color(0,0,0)); 
+      strip.show();
+    }
+      delay(10);
+}
+
+// Create a 24 bit color value from R,G,B
+RGBPixel Color(byte r, byte g, byte b)
+{
+  RGBPixel p;
+  
+  p.red = r;
+  p.green = g;
+  p.blue = b;
+  
+  return p;
 }
