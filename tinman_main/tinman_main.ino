@@ -1,3 +1,6 @@
+#include <Adafruit_FloraPixel.h>
+#include <CapacitiveSensor.h>
+
 /*
   Blink
   Turns on an LED on for one second, then off for one second, repeatedly.
@@ -14,19 +17,24 @@
   6) Click the upload button above within 10 seconds
 */
  
-int led = 1; // blink 'digital' pin 1 - AKA the built in red LED
- 
+//int led = 1; // blink 'digital' pin 1 - AKA the built in red LED
+ CapacitiveSensor cs_0_2 = CapacitiveSensor(0,2);
+ Adafruit_FloraPixel strip = Adafruit_FloraPixel(1);
 // the setup routine runs once when you press reset:
 void setup() {
-  // initialize the digital pin as an output.
-  pinMode(led, OUTPUT);
- 
+
+    cs_0_2.set_CS_AutocaL_Millis(0xFFFFFFFF);    
 }
  
-// the loop routine runs over and over again forever:
-void loop() {
-    digitalWrite(led, HIGH); 
-    delay(1000);
-    digitalWrite(led, LOW);
-    delay(2000);
+void loop()                    
+{
+    long start = millis();
+    long total1 =  cs_0_2.capacitiveSensor(30);
+ 
+    if (total1 > 4000){
+      digitalWrite(1, HIGH);
+    }else{
+      digitalWrite(1, LOW);}
+      
+         delay(10);
 }
